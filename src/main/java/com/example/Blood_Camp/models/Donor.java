@@ -1,5 +1,6 @@
 package com.example.Blood_Camp.models;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
@@ -10,7 +11,9 @@ import javax.validation.constraints.*;
 public class Donor {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+//    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
+    @GenericGenerator(name="native",strategy = "native")
     private int id;
 
     @NotNull
@@ -39,11 +42,18 @@ public class Donor {
     @NotNull (message = "passwords do not match")
     @Transient
     private String confirmPassword;
+    @ManyToOne
+    private Event event;
 
+    public Event getEvent() {
+        return event;
+    }
 
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
-
-//default constructor
+    //default constructor
     public Donor(){}
 //parameterized constructor
     public Donor(int id, String name, String bloodgroup, String mobilenumber, int zipcode, String email, String password, String confirmPassword) {
