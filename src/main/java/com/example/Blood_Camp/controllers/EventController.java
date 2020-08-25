@@ -62,8 +62,8 @@ public class EventController {
 //
 //        return "events/view";
 //    }
-    @GetMapping
-    public String displayViewEmployer(Model model, @RequestParam int eventId) {
+    @GetMapping("view/{eventId}")
+    public String displayViewEmployer(Model model, @PathVariable int eventId){
 
 //        Optional optEmployer = null;
         Optional optEvent = eventDao.findById(eventId);
