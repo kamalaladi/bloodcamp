@@ -1,5 +1,6 @@
 package com.example.Blood_Camp.models;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,13 +9,17 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 
 public class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
+    @GenericGenerator(name="native",strategy = "native")
     private int id;
 
     @NotNull
@@ -42,6 +47,17 @@ public class Event {
     @NotNull
     @Min(5)
     private int zipcode;
+    @OneToMany
+    @JoinColumn(name="donor_id")
+    private List<Donor> donors=new ArrayList<>();
+
+    public List<Donor> getDonors() {
+        return donors;
+    }
+
+    public void setDonors(List<Donor> donors) {
+        this.donors = donors;
+    }
 
     public Event(){}
 
