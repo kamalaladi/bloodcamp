@@ -21,16 +21,7 @@ public class EventController {
     @Autowired
     private EventDao eventDao;
 
-//    @PostMapping //path or route
-//    public String viewevent(Model model,Event event,@RequestParam(required = false) int[] eventIds) { // route handler method
-//        model.addAttribute("title", "event details");
-//        if (eventIds != null) {
-//            for (int id : eventIds) {
-//                model.addAttribute("events", eventDao.findById(id));
-//            }
-//        }
-//        return "events/view";
-//    }
+
 
     @GetMapping("create")
     public String displayEventForm(Model model) {
@@ -50,18 +41,12 @@ public class EventController {
         }
 
         eventDao.save(newEvent);
-//        model.addAttribute("title","All donors");
-//        model.addAttribute("donors", donorDao.findAll());
-        return "redirect:";
+
+        return "redirect:view/" + newEvent.getId();
 
     }
 
-//    @GetMapping
-//    public String renderviewEventForm(Model model,Event event) {
-//        model.addAttribute("events", eventDao.findById(event.getId()));
 //
-//        return "events/view";
-//    }
     @GetMapping("view/{eventId}")
     public String displayViewEmployer(Model model, @PathVariable int eventId){
 
@@ -74,7 +59,16 @@ public class EventController {
         } else {
             return "redirect:../";
     }
+
 }
+    @GetMapping("recentevent")
+    public String displayRecentEvent(Model model){
+        Long eventsize = eventDao.count();
+
+        return "redirect:view/" + eventsize;
+
+
+    }
 }
 
 

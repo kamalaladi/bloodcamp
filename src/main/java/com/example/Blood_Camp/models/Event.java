@@ -47,8 +47,8 @@ public class Event {
     @NotNull
     @Min(5)
     private int zipcode;
-    @OneToMany
-    @JoinColumn(name="donor_id")
+
+    @ManyToMany(mappedBy = "event")
     private List<Donor> donors=new ArrayList<>();
 
     public List<Donor> getDonors() {

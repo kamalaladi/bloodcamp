@@ -42,8 +42,12 @@ public class Donor {
     @NotNull (message = "passwords do not match")
     @Transient
     private String confirmPassword;
-    @ManyToOne
+    @ManyToMany
     private Event event;
+
+
+    //default constructor
+    public Donor(){}
 
     public Event getEvent() {
         return event;
@@ -53,9 +57,7 @@ public class Donor {
         this.event = event;
     }
 
-    //default constructor
-    public Donor(){}
-//parameterized constructor
+    //parameterized constructor
     public Donor(int id, String name, String bloodgroup, String mobilenumber, int zipcode, String email, String password, String confirmPassword) {
         this.id = id;
         this.name = name;

@@ -27,7 +27,7 @@ public class DonorController {
         return "donors/view";
     }
 
-    @RequestMapping(value="/")
+    @RequestMapping(value="/welcome")
     public String index(Model model){
         model.addAttribute("title","BLOOD CAMP");
         //model.addAttribute("users",donorDao.findAll());
