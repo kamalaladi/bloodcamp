@@ -16,29 +16,52 @@
     <nav class="navbar navbar-expand-xl bg-dark">
         <!-- Links -->
         <ul class="navbar-nav">
+
             <li class="nav-item">
                 <a class="nav-link" href="/donors/welcome">Home</a>
             </li>
+
+            <p th:if="${session.donorname == null}">
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/donors/newdonor">Sign Up</a>-->
+<!--            </li>-->
             <li class="nav-item">
-                <a class="nav-link" href="/donors/newdonor">Sign Up</a>
+                <a class="nav-link" href="/donors/login">Donors Log In</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/donors/login">Log In</a>
-            </li>
+
+            </p>
+
             <li class="nav-item">
                 <a class="nav-link" href="/events/recentevent">Donor Event</a>
             </li>
+            <p th:if=" ${session.role =='Admin'}">
+            <li class="nav-item">
+                <a class="nav-link" href="/events/create">Add Event</a>
+            </li><li class="nav-item">
+            <a class="nav-link" href="/donors">Donors</a>
+        </li>
+
+            </p>
             <li class="nav-item">
                 <a class="nav-link" href="/donors/policy">Policy</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/events/create">Add Event</a>
-            </li>
+
         </ul>
 
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <p th:if="${session.donorname} != null">
+
+                <li class="nav-item active">
+                    <a class="nav-link" style="color:; margin-auto:0;" href="/donors/logout"><strong>Log out</strong> </a>
+                </li>
+                </p></ul>
+
+        </div>
 
 
-</nav>
+
+    </nav>
 
 <!--</nav>-->
 </nav>

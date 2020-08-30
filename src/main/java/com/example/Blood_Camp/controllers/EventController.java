@@ -48,19 +48,17 @@ public class EventController {
 
 //
     @GetMapping("view/{eventId}")
-    public String displayViewEmployer(Model model, @PathVariable int eventId){
+    public String displayViewEmployer(Model model, @PathVariable int eventId) {
 
 //        Optional optEmployer = null;
         Optional optEvent = eventDao.findById(eventId);
-     if (optEvent.isPresent()) {
+        if (optEvent.isPresent()) {
             Event event = (Event) optEvent.get();
             model.addAttribute("event", event);
-            return "events/view";
-        } else {
-            return "redirect:../";
-    }
+        }
+        return "events/view";
 
-}
+    }
     @GetMapping("recentevent")
     public String displayRecentEvent(Model model){
         Long eventsize = eventDao.count();

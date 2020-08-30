@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Entity
 
@@ -42,23 +43,27 @@ public class Donor {
     @NotNull (message = "passwords do not match")
     @Transient
     private String confirmPassword;
-    @ManyToMany
-    private Event event;
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    private String role;
+
+    @ManyToMany
+    private List<Event> event;
 
     //default constructor
     public Donor(){}
 
-    public Event getEvent() {
-        return event;
-    }
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
 
     //parameterized constructor
-    public Donor(int id, String name, String bloodgroup, String mobilenumber, int zipcode, String email, String password, String confirmPassword) {
+    public Donor(int id, String name, String bloodgroup, String mobilenumber, int zipcode, String email, String password, String confirmPassword,String role) {
         this.id = id;
         this.name = name;
         this.bloodgroup = bloodgroup;
@@ -67,6 +72,7 @@ public class Donor {
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
+        this.role = role;
     }
 
     public String getConfirmPassword() {
@@ -90,9 +96,9 @@ public class Donor {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -133,6 +139,14 @@ public class Donor {
     public void setPassword(String password) {
         this.password = password;
         checkPassword();
+    }
+
+    public List<Event> getEvent() {
+        return event;
+    }
+
+    public void setEvent(List<Event> event) {
+        this.event = event;
     }
 
     public void checkPassword() {

@@ -1,15 +1,20 @@
 package com.example.Blood_Camp.controllers;
 
 import com.example.Blood_Camp.models.Donor;
+import com.example.Blood_Camp.models.Event;
 import com.example.Blood_Camp.models.Login;
 import com.example.Blood_Camp.models.data.DonorDao;
+import com.example.Blood_Camp.models.data.EventDao;
+import org.dom4j.dom.DOMElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -19,6 +24,7 @@ public class DonorController {
 
     @Autowired
     private DonorDao donorDao;
+    private EventDao eventDao;
 
     @GetMapping
     public String viewdonor(Model model) {
@@ -42,18 +48,34 @@ public class DonorController {
 
 
     @PostMapping(value="newdonor")
-    public String processNewuserForm(@ModelAttribute @Valid Donor newDonor, Errors errors, Model model ){
+    public String processNewuserForm(@ModelAttribute @Valid Donor newDonor, Errors errors, Model model, HttpSession session) {
 
-        if(errors.hasErrors()){
-            model.addAttribute("title","New Donor");
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "New Donor");
             return "donors/newdonor";
         }
 
-        donorDao.save(newDonor);
-        model.addAttribute("title","All donors");
-        model.addAttribute("donors", donorDao.findAll());
-        return "donors/view";
+        Donor existDonor = donorDao.findByEmail(newDonor.getEmail());
+        if (existDonor != null) {
+            model.addAttribute("message", "Donor already exists");
+
+            return "redirect:/donors/newdonor?q=Donor+already+exists";
+
+        } else {
+
+
+//            newDonor.setEvent((List<Event>) eventDao.findAll());
+
+
+            donorDao.save(newDonor);
+            model.addAttribute("title", "All donors");
+            model.addAttribute("donors", donorDao.findAll());
+            session.setAttribute("donorname", newDonor.getName());
+            session.setAttribute("sDonorId", newDonor.getId());
+            return "donors/welcome";
+        }
     }
+
     @GetMapping(value="login")
     public String displayloginform(Model model){
         model.addAttribute("title","login");
@@ -62,13 +84,31 @@ public class DonorController {
     }
 
     @PostMapping(value="login")
-    public String processloginform(@ModelAttribute @Valid Login newLogin, Errors errors, Model model){
+    public String processloginform(@ModelAttribute @Valid Login newLogin, Errors errors, Model model, HttpSession session){
 
         if(errors.hasErrors()){
             model.addAttribute("title","login");
             return "donors/login";
         }
-        return "donors/welcome";
+        Donor matchDonor;
+        matchDonor= donorDao.findByEmail(newLogin.getEmail());
+        if(matchDonor != null && newLogin.getPassword().equals(matchDonor.getPassword())){
+
+            session.setAttribute("donorname",matchDonor.getName());
+            session.setAttribute("sDonorId",matchDonor.getId());
+            session.setAttribute("role",matchDonor.getRole());
+            return "donors/welcome";
+        }
+        model.addAttribute("message","Invalid Login");
+        return "redirect:/donors/login?q=Invalid+Login";
+
+    }
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String processLogoutForm(HttpSession session) {
+        session.removeAttribute("donorname");
+        session.removeAttribute("sDonorId");
+        session.invalidate();
+        return "donors/logout";
     }
 
     @GetMapping(value = "edit/{donorid}")
@@ -118,5 +158,12 @@ public class DonorController {
         return "redirect:";
 
 
+
+    }
+    @GetMapping("policy")
+    public String processPolicyForm(Model model){
+        model.addAttribute("title","policy");
+
+        return"donors/policy";
     }
     }

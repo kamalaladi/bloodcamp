@@ -8,6 +8,8 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
+<p th:text="${param.q}" class="error"></p>
+
 
 <div class="container">
  <form method="post" th:object="${donor}">
@@ -77,8 +79,13 @@
                       th:value="${category.id}"></option>
           </select>
       </div>-->
+     <div >
+         <label>Role Type</label>
+         <input  type="radio" name="roleType" value="Admin" th:field="*{role}"  disabled/>Admin
+         <input  type="radio" name="roleType" value="User" th:field="*{role}"  onclick="javascript: return true;"/> User
 
-      <input type="submit" value="Sign Up" />
+     </div>
+     <input type="submit" value="Sign Up" />
   </form>
 <p>
     Already a User? <a href = "/donors/login">Sign in</a>

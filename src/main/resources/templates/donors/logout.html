@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments:: head"></head>
+<body style="background-color: lightblue;">
+
+<nav th:replace="fragments :: navigation"></nav>
+<ul class="navbar-nav ">
+    <p th:if="${session.donorname} != null">
+
+    <li class="nav-item active" >
+        <a class="nav-link" href="/donors/login">Log In </a></li>
+    <li class="nav-item active" style="float:right">
+        <a class="nav-link" href="/donors/log out">Log out </a>
+    </li>
+</ul></p>
+
+
+<p th:if="${session.donorname} == null" style="margin-bottom:10%">
+<h1 style="color:blue;"><b>
+    You have been logged out Successfully. See you next time.</b>
+</h1></p>
+
+</body>
+</html>

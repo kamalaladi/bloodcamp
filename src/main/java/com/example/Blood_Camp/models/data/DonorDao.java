@@ -11,4 +11,5 @@ import javax.transaction.Transactional;
 @Transactional
 public interface DonorDao extends CrudRepository<Donor, Integer> {
 
+    Donor findByEmail(String email);
 }

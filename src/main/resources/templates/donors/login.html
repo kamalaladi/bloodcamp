@@ -13,8 +13,8 @@
     <table>
         <tr>
             <td>UserName</td>
-            <td><input type="text" th:field="*{name}" /></td>
-            <span th:errors="*{name}" class="error"></span>
+            <td><input type="email" th:field="*{email}" /></td>
+            <span th:errors="*{email}" class="error"></span>
         </tr>
         <tr>
             <td>Password</td>
@@ -26,7 +26,7 @@
                 <input type="submit" value="Sign In"/>
             </td>
         </tr>
-
+<p th:text="${message}" style="color:red;"></p>
         <tr>
             <td>
                 Don't have an Account? <a href="/donors/newdonor">New Donor</a>
