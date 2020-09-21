@@ -18,7 +18,7 @@ public class Donor {
     private int id;
 
     @NotNull
-    @Size(min=5, max=10)
+    @Size(min=3,max=10)
     private String name;
 
     private String bloodgroup;

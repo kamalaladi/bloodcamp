@@ -166,4 +166,11 @@ public class DonorController {
 
         return"donors/policy";
     }
+    @GetMapping("contact")
+    public String processContactForm(Model model){
+        model.addAttribute("title","contact");
+
+        return"donors/contact";
+    }
+
     }
