@@ -5,15 +5,17 @@
 <body class="container">
 
 
-<h1 th:text="${title}"></h1><span style="float:right;" th:if="${session.donorname == null}"></span>
-<p th:text="${#strings.capitalizeWords(session.donorname)}" th:unless="${session == null}" style="align:center">
 
-</p></h1>
 
 <nav th:replace="fragments :: navigation"></nav>
+<h1 th:text="${title}"style="text-align:center;" >BLOOD DONORS</h1>
+<span style="float:right;" th:if="${session.donorname == null}"></span>
 
 
-<img src="https://tse2.mm.bing.net/th?id=OIP.JMeCiJ2aQzpk0qqxSyMUsAHaC0&pid=Api&P=0&w=523&h=200" style="width:100%; margin-top: 5%; align:center;" />
+<p th:text="${#strings.capitalizeWords(session.donorname)}" th:unless="${session == null}" style="align:center; font-size:30px;"></p>
+
+
+<img src="https://tse2.mm.bing.net/th?id=OIP.JMeCiJ2aQzpk0qqxSyMUsAHaC0&pid=Api&P=0&w=523&h=200" style="width:1200px; margin-top: 5%; align:center;" />
 
 
 </body>

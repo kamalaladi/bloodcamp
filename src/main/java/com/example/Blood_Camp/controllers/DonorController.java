@@ -41,7 +41,7 @@ public class DonorController {
     }
     @GetMapping(value ="newdonor")
         public String displayNewDonorForm(Model model){
-        model.addAttribute("title","NewDonor");
+       model.addAttribute("title","NewDonor");
         model.addAttribute(new Donor());
         return "donors/newdonor";
     }
@@ -68,7 +68,7 @@ public class DonorController {
 
 
             donorDao.save(newDonor);
-            model.addAttribute("title", "All donors");
+//           model.addAttribute("title", "All donors");
             model.addAttribute("donors", donorDao.findAll());
             session.setAttribute("donorname", newDonor.getName());
             session.setAttribute("sDonorId", newDonor.getId());
@@ -78,7 +78,7 @@ public class DonorController {
 
     @GetMapping(value="login")
     public String displayloginform(Model model){
-        model.addAttribute("title","login");
+        model.addAttribute("title","Login");
         model.addAttribute(new Login());
         return "donors/login";
     }
@@ -87,7 +87,7 @@ public class DonorController {
     public String processloginform(@ModelAttribute @Valid Login newLogin, Errors errors, Model model, HttpSession session){
 
         if(errors.hasErrors()){
-            model.addAttribute("title","login");
+            model.addAttribute("title","Login");
             return "donors/login";
         }
         Donor matchDonor;
@@ -99,8 +99,9 @@ public class DonorController {
             session.setAttribute("role",matchDonor.getRole());
             return "donors/welcome";
         }
-        model.addAttribute("message","Invalid Login");
-        return "redirect:/donors/login?q=Invalid+Login";
+        model.addAttribute("message","Invalid login");
+        return "redirect:/donors/login?q=Invalid+login";
+//        return "redirect:/donors/login";
 
     }
     @RequestMapping(value = "logout", method = RequestMethod.GET)
@@ -162,13 +163,13 @@ public class DonorController {
     }
     @GetMapping("policy")
     public String processPolicyForm(Model model){
-        model.addAttribute("title","policy");
+//        model.addAttribute("title","policy");
 
         return"donors/policy";
     }
     @GetMapping("contact")
     public String processContactForm(Model model){
-        model.addAttribute("title","contact");
+//        model.addAttribute("title","contact");
 
         return"donors/contact";
     }

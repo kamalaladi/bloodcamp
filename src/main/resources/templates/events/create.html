@@ -5,9 +5,9 @@
 <body>
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1 th:text="${title}">Default Title</h1>
+<!--<h1 th:text="${title}">Default Title</h1>-->
 <div class="container-fluid">
-    <form method="post" th:object="${event}">
+    <form method="post" th:object="${event}" style="max-width:460px; margin-top:30px; align:center;">
 
         <div>
             <label th:for="location">Location</label>
